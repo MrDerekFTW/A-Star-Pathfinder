@@ -1,3 +1,7 @@
+/// Pathfinder class
+/// Author: Derek Blankenship
+/// Date: 4/12/17
+
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
