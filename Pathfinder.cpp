@@ -48,7 +48,7 @@ std::stack<node> Pathfinder::findPath(point *origin, point *destination,
             node curr = childNodes.back();
             childNodes.pop_back();
 
-            if (curr.x == destination->x && curr.y == destination->y)
+            if (curr.position.x == destination->x && curr.position.y == destination->y)
             {
                 finalPath = this->constructPath(&curr); // path found!
                 return finalPath;
@@ -98,13 +98,13 @@ void Pathfinder::makeNewNode(int changeX, int changeY, const node *parent,
 {
     node newNode = *(parent);
     newNode.parent = parent;
-    newNode.x = newNode.x + changeX;
-    newNode.y = newNode.y + changeY;
+    newNode.position.x = newNode.position.x + changeX;
+    newNode.position.y = newNode.position.y + changeY;
     #ifdef PRINT_DEBUG_INFO
     std::cout << "Pathfinder::makeNewNode -> Considering node: (" << newNode.x << "," << newNode.y << ")" << std::endl;
     #endif // PRINT_DEBUG_INFO
-    if (newNode.x == destination->x
-        && newNode.y == destination->y)
+    if (newNode.position.x == destination->x
+        && newNode.position.y == destination->y)
     {
         #ifdef PRINT_DEBUG_INFO
         std::cout << "Pathfinder::makeNewNode -> Exception made!" << std::endl;
@@ -112,11 +112,11 @@ void Pathfinder::makeNewNode(int changeX, int changeY, const node *parent,
         nodes->push_back(newNode);
         return;
     }
-    if (newNode.x < (*pathingMap).size())
+    if (newNode.position.x < (*pathingMap).size())
     {
-        if (newNode.y < (*pathingMap)[newNode.x].size())
+        if (newNode.position.y < (*pathingMap)[newNode.position.x].size())
         {
-            if ( (*pathingMap)[newNode.x][newNode.y] == OPEN)
+            if ( (*pathingMap)[newNode.position.x][newNode.position.y] == OPEN)
             {
                 nodes->push_back(newNode);
             }
@@ -126,8 +126,8 @@ void Pathfinder::makeNewNode(int changeX, int changeY, const node *parent,
 
 node Pathfinder::setHeuristicValues(node curr, const node *parent, point *dest)
 {
-    curr.distTravld = parent->distTravld + distBtwnPnts(curr, *parent);
-    point currPoint = {curr.x, curr.y};
+    curr.distTravld = parent->distTravld + distBtwnPnts(curr.position, (*parent).position);
+    point currPoint = {curr.position.x, curr.position.y};
     curr.distToDest = distBtwnPnts(currPoint, *dest);
     curr.moveCost = curr.distTravld + curr.distToDest;
     return curr;

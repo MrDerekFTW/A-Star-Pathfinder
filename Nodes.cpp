@@ -5,11 +5,6 @@ float distBtwnPnts(point one, point two)
     return sqrt(pow(one.x - two.x, 2) + pow(one.y - two.y, 2));
 }
 
-float distBtwnPnts(node one, node two)
-{
-    return sqrt(pow(one.x - two.x, 2) + pow(one.y - two.y, 2));
-}
-
 bool testAdjacency(point a, point b)
 {
     int diffX = abs(a.x - b.x);
@@ -37,7 +32,7 @@ void printNodeStack(std::stack<node> *nodeStack)
     while (!nodeStack->empty())
     {
         step++;
-        std::cout << "Step " << step << ": ("  << nodeStack->top().x << "," << nodeStack->top().y << ")" << std::endl;
+        std::cout << "Step " << step << ": ("  << nodeStack->top().position.x << "," << nodeStack->top().position.y << ")" << std::endl;
         nodeStack->pop();
     }
 }

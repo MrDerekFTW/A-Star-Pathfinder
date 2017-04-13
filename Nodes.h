@@ -53,7 +53,7 @@ struct pntCmpFn
 struct node
 {
     const node *parent;
-    int x, y;
+    point position;
     float moveCost, distTravld, distToDest;
 };
 
@@ -68,9 +68,9 @@ struct nodeCmpFn
 {
     bool operator() (node one, node two)
     {
-        if ( one.x < two.x )
+        if ( one.position.x < two.position.x )
             return true;
-        if ( one.y < two.y && one.x == two.x )
+        if ( one.position.y < two.position.y && one.position.x == two.position.x )
             return true;
         return false;
     }
@@ -79,12 +79,10 @@ struct nodeCmpFn
 /**
  * Function: distBtwnPoints
  * ------------------------
- * Returns the distance between the nodes or points that the
- * user provides.
+ * Returns the distance between two points.
  */
 
 float distBtwnPnts(point one, point two);
-float distBtwnPnts(node one, node two);
 
 /**
  * Function: testAdjacency
