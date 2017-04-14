@@ -13,7 +13,7 @@ int main()
 
     point myOrigin = {0, 0};
     point myDestination = {9, 0};
-    std::stack<node> mySolution;
+    std::stack<point> mySolution;
 
     //***********TEST 1***********//
 
@@ -28,7 +28,7 @@ int main()
     std::cout << std::endl << "Test #1" << std::endl; // all spaces open
     std::cout << "All spaces open..." << std::endl;
 
-    mySolution = myPathfinder.findPath(&myOrigin, &myDestination, &myMap);
+    mySolution = myPathfinder.findPath(myOrigin, myDestination, &myMap);
 
     if (mySolution.empty() == true)
     {
@@ -37,7 +37,7 @@ int main()
     else
     {
         std::cout << "Path found!" << std::endl;
-        printNodeStack(&mySolution);
+        printPointStack(&mySolution);
     }
 
     //***********TEST 2***********//
@@ -56,7 +56,7 @@ int main()
     std::cout << std::endl << "Test #2" << std::endl; // partial wall in center
     std::cout << "Partial wall in center..." << std::endl;
 
-    mySolution = myPathfinder.findPath(&myOrigin, &myDestination, &myMap);
+    mySolution = myPathfinder.findPath(myOrigin, myDestination, &myMap);
 
     if (mySolution.empty() == true)
     {
@@ -65,7 +65,7 @@ int main()
     else
     {
         std::cout << "Path found!" << std::endl;
-        printNodeStack(&mySolution);
+        printPointStack(&mySolution);
     }
 
     //***********TEST 3***********//
@@ -75,7 +75,7 @@ int main()
     std::cout << std::endl << "Test #3" << std::endl; // full wall in center
     std::cout << "Full wall in center..." << std::endl;
 
-    mySolution = myPathfinder.findPath(&myOrigin, &myDestination, &myMap);
+    mySolution = myPathfinder.findPath(myOrigin, myDestination, &myMap);
 
     if (mySolution.empty() == true)
     {
@@ -84,7 +84,7 @@ int main()
     else
     {
         std::cout << "Path found!" << std::endl;
-        printNodeStack(&mySolution);
+        printPointStack(&mySolution);
     }
 
     //***********TEST 4***********//
@@ -95,7 +95,7 @@ int main()
     std::cout << std::endl << "Test #4" << std::endl; // partial wall in center and final point closed
     std::cout << "Partial wall in center and final point closed..." << std::endl;
 
-     mySolution = myPathfinder.findPath(&myOrigin, &myDestination, &myMap);
+     mySolution = myPathfinder.findPath(myOrigin, myDestination, &myMap);
 
     if (mySolution.empty() == true)
     {
@@ -104,7 +104,7 @@ int main()
     else
     {
         std::cout << "Path found!" << std::endl;
-        printNodeStack(&mySolution);
+        printPointStack(&mySolution);
     }
 
     //***********TEST 5***********//
@@ -122,7 +122,7 @@ int main()
     std::cout << std::endl << "Test #5" << std::endl; // Diagonal preference
     std::cout << "Diagonal preference..." << std::endl;
 
-     mySolution = myPathfinder.findPath(&myOrigin, &myDestination, &myMap);
+     mySolution = myPathfinder.findPath(myOrigin, myDestination, &myMap);
 
     if (mySolution.empty() == true)
     {
@@ -131,7 +131,7 @@ int main()
     else
     {
         std::cout << "Path found!" << std::endl;
-        printNodeStack(&mySolution);
+        printPointStack(&mySolution);
     }
 
     return 0;

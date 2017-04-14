@@ -43,7 +43,7 @@ class Pathfinder
  * path if a path is possible, otherwise returns an empty stack.
  */
 
-        std::stack<node> findPath(point *origin, point *destination,
+        std::stack<point> findPath(point origin, point destination,
                                   std::vector< std::vector<int> > *pathingMap);
 
         virtual ~Pathfinder();
@@ -91,7 +91,7 @@ class Pathfinder
  * findPath.
  */
 
-        std::stack<node> constructPath(const node *root);
+        std::stack<point> constructPath(const node *root);
 
 };
 

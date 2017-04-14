@@ -18,22 +18,22 @@ bool testAdjacency(point a, point b)
     return false;
 }
 
-void clearNodeStack(std::stack<node> *nodeStack)
+void clearPointStack(std::stack<point> *pointStack)
 {
-    while (!nodeStack->empty())
+    while (!pointStack->empty())
     {
-        nodeStack->pop();
+        pointStack->pop();
     }
 }
 
-void printNodeStack(std::stack<node> *nodeStack)
+void printPointStack(std::stack<point> *pointStack)
 {
     int step = 0;
-    while (!nodeStack->empty())
+    while (!pointStack->empty())
     {
         step++;
-        std::cout << "Step " << step << ": ("  << nodeStack->top().position.x << "," << nodeStack->top().position.y << ")" << std::endl;
-        nodeStack->pop();
+        std::cout << "Step " << step << ": ("  << pointStack->top().x << "," << pointStack->top().y << ")" << std::endl;
+        pointStack->pop();
     }
 }
 

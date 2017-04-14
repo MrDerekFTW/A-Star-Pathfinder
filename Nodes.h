@@ -93,20 +93,20 @@ float distBtwnPnts(point one, point two);
 bool testAdjacency(point a, point b);
 
 /**
- * Function: clearNodeStack
+ * Function: clearPointStack
  * ------------------------
- * Pops off all nodes from the provided node stack.
+ * Pops off all points from the provided point stack.
  */
 
-void clearNodeStack(std::stack<node> *nodeStack);
+void clearPointStack(std::stack<point> *pointStack);
 
 /**
- * Function: printNodeStack
+ * Function: printPointStack
  * ------------------------
  * Pops off all elements of nodeStack and prints
- * each node's (x,y) values to the console.
+ * each point's (x,y) values to the console.
  */
 
-void printNodeStack(std::stack<node> *nodeStack);
+void printPointStack(std::stack<point> *pointStack);
 
 #endif // NODES_H

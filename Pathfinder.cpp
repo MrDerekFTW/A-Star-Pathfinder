@@ -5,14 +5,14 @@ Pathfinder::Pathfinder()
     //ctor
 }
 
-std::stack<node> Pathfinder::findPath(point *origin, point *destination,
+std::stack<point> Pathfinder::findPath(point origin, point destination,
                                       std::vector< std::vector<int> > *pathingMap)
 {
     // using A* algorithm with small modifications
 
-    node originNode = {NULL, origin->x, origin->y, 0, 0, 0};
+    node originNode = {NULL, origin.x, origin.y, 0, 0, 0};
 
-    std::stack<node> finalPath;
+    std::stack<point> finalPath;
 
     std::set<node, nodeCmpFn> open;
     std::set<node, nodeCmpFn> closed;
@@ -27,18 +27,18 @@ std::stack<node> Pathfinder::findPath(point *origin, point *destination,
 
         std::vector<node> childNodes;
 
-        this->makeNewNode(1, 0, parent, destination, &childNodes, pathingMap); // East
-        this->makeNewNode(-1, 0, parent, destination, &childNodes, pathingMap); // West
+        this->makeNewNode(1, 0, parent, &destination, &childNodes, pathingMap); // East
+        this->makeNewNode(-1, 0, parent, &destination, &childNodes, pathingMap); // West
 
-        this->makeNewNode(0, 1, parent, destination, &childNodes, pathingMap); // South
-        this->makeNewNode(0, -1, parent, destination, &childNodes, pathingMap); // North
+        this->makeNewNode(0, 1, parent, &destination, &childNodes, pathingMap); // South
+        this->makeNewNode(0, -1, parent, &destination, &childNodes, pathingMap); // North
 
         #ifdef ALLOW_DIAGONAL
-        this->makeNewNode(1, 1, parent, destination, &childNodes, pathingMap);  // SE
-        this->makeNewNode(-1, -1, parent, destination, &childNodes, pathingMap); // NW
+        this->makeNewNode(1, 1, parent, &destination, &childNodes, pathingMap);  // SE
+        this->makeNewNode(-1, -1, parent, &destination, &childNodes, pathingMap); // NW
 
-        this->makeNewNode(-1, 1, parent, destination, &childNodes, pathingMap); // SW
-        this->makeNewNode(1, -1, parent, destination, &childNodes, pathingMap); // SE
+        this->makeNewNode(-1, 1, parent, &destination, &childNodes, pathingMap); // SW
+        this->makeNewNode(1, -1, parent, &destination, &childNodes, pathingMap); // SE
         #endif // ALLOW_DIAGONAL
 
         int numChildren = childNodes.size(); // use dummy because nodes may decrease in size
@@ -48,13 +48,13 @@ std::stack<node> Pathfinder::findPath(point *origin, point *destination,
             node curr = childNodes.back();
             childNodes.pop_back();
 
-            if (curr.position.x == destination->x && curr.position.y == destination->y)
+            if (curr.position.x == destination.x && curr.position.y == destination.y)
             {
                 finalPath = this->constructPath(&curr); // path found!
                 return finalPath;
             }
 
-            curr = this->setHeuristicValues(curr, parent, destination);
+            curr = this->setHeuristicValues(curr, parent, &destination);
             bool addToOpen = true;
 
             if (open.find(curr) != open.end())
@@ -77,7 +77,7 @@ std::stack<node> Pathfinder::findPath(point *origin, point *destination,
             }
         }
     }
-    clearNodeStack(&finalPath);
+    clearPointStack(&finalPath);
     return finalPath;
 }
 
@@ -147,16 +147,17 @@ node Pathfinder::findLowestCost(std::set<node, nodeCmpFn> *s)
     return best;
 }
 
-std::stack<node> Pathfinder::constructPath(const node *root)
+std::stack<point> Pathfinder::constructPath(const node *root)
 {
-    std::stack<node> path;
+    std::stack<point> path;
+    //std::stack<node> path;
     while (true)
     {
         #ifdef PRINT_DEBUG_INFO
         std::cout << "Pathfinder::constructPath -> Current: (" << root->x << "," << root->y << ")" << std::endl;
         #endif // PRINT_DEBUG_INFO
-
-        path.push(*root);
+        point pt = {root->position.x, root->position.y};
+        path.push(pt);
         if (root->parent == NULL)
         {
             break;
